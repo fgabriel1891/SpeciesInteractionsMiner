@@ -46,7 +46,8 @@ shinyServer(function(input, output, session) {
     # loop to retrieve occurrences. 
     loop <- c()
     for (i in 1:length(pattern[[1]])){
-      loop[i] = stringi::stri_sub(txt, pattern[[1]][i], pattern[[1]][i] + attributes(pattern[[1]])$match.length[i]) }
+      loop[i] = stringi::stri_sub(txt, pattern[[1]][i], 
+                                  pattern[[1]][i] + attributes(pattern[[1]])$match.length[i]) }
     # Match offsets 
     x <- names$data$offsetstart
     y <- names$data$scientificname 
@@ -60,7 +61,7 @@ shinyServer(function(input, output, session) {
                        substr(dic[,1],1,3))]
     p$t1 = rep(NA,length(p$z))
     p$t1[which(p$z == "blue")] = t1
-    p$t1[which(is.na(p$t1))] = "a"
+    p$t1[which(is.na(p$t1))] = "animal"
     ob <- c(p, "text" = names$meta$content)
     print(str(ob))
     return(ob)
