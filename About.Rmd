@@ -1,0 +1,14 @@
+---
+title: "SpIn Miner"
+author: "Gabriel Muñoz"
+date: "1/25/2018"
+output: html_document
+---
+
+## Welcome to SpIn: Species Interactions Miner
+
+ > This is a shiny app to facilitate the mining of pairwise species interactions from literature. 
+ 
+ 
+# About: 
+
