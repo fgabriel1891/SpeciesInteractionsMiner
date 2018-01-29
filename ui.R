@@ -16,9 +16,18 @@ names(path2) <- filenames.dic
 
 
 shinyUI(
-  navbarPage("SpIn Miner: Species Interactions Miner Helper", id="vis",
+  navbarPage("SpIn Miner: Species Interactions Miner", id="vis",
              tabPanel("About", 
-                      includeMarkdown("About.Rmd")),
+                      fluidPage(
+                        column(9, 
+                      includeMarkdown("About.Rmd")
+                               )
+                      ),
+                      p("This shiny app is currently on development and
+                        under MIT License."),
+                      p("Contact Person: Gabriel Muñoz"),
+                      p(a(shiny::icon('github fa-2x'),href='https://github.com/fgabriel1891/SpeciesInteractionsMiner',target='_blank'))
+             ),
              
              tabPanel("Upload Literature",
                       
@@ -91,15 +100,12 @@ shinyUI(
              tabPanel("Download", 
                       h2("Download interactions mined"),
                       fluidPage(
-                        
-                               ),
                         column(3, 
                                #action buttons  
-                               actionButton("new", "New"),
-                               actionButton("delete", "Delete")
-                               )
-                      ),
+                               downloadButton("new", "Download Database")
+                               )),
                       h2("Visualize the results")
+                      )
                       )
              )
   

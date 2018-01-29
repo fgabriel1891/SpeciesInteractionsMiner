@@ -10,5 +10,22 @@ output: html_document
  > This is a shiny app to facilitate the mining of pairwise species interactions from literature. 
  
  
-# About: 
+# How to use it:
 
+ 1.- Select and upload one or more literature works as PDF (articles, books, thesis, etc) to search for species interactions occurrences within the text. 
+ 
+ 2.- From the dropdown list, select a dictionary describing the interaction of interest. 
+ 
+ 3.- Select the article of interest and Hit the "Explore" button to start looking for species interactions occurrences. ( This might take a bit of time depending of the lenght of the text uploaded) 
+ 
+ 4.- An interactive plot, showing the species scientific names and dictionary matches found within the text. 
+ 
+ 5.- Explore the interactive plot, zoom in to certain areas and hover your mouse over the points for more information. The x-axis represents the lenght of the text (in characters). The y-axis represents the logarithm of the pairwise distance between adjacent text hits. 
+ 
+ 6.- Mentions of species interactions occurrences are likely to occur where clusters of species and dictionary matches are formed. Zoom in and with the slider tool render the piece of text for more information. 
+ 
+ 7.- Fill in the dataset below with your interactions mined. 
+ 
+ 8.- At the "Download tab you can download your dataset as a .csv file for further analisis"
+ 
+ 9.- (Optional) Visualize your results as a network! 
