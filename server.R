@@ -26,18 +26,36 @@ shinyServer(function(input, output, session) {
     return(vect)
   }
   
+  ## Function to identify taxonomically species names! To include in shiny workflow in the future
+  getTaxType = function(names){ 
+    
+    # Create unique pool of names to identify (Save computation time)
+    spfound <- unique(names)
+    # #incProgress(amount = 0.4, message = "Done!" )
+    # incProgress(amount = 0.2,
+    #             message = "Finding taxonomic 
+    #             ontologies of scientific names found" ) # update progress bar
+    
+    # Identify names
+    families <- taxize::tax_name(spfound, get = "kingdom", db = "ncbi",
+                                 verbose = F,
+                                 ask = F) # Look for kingdom (to separate animal vs plant)
+    families <- cbind(spfound, families)
+    out <- c("query","db")
+    families2 <- families[,!(names(families) %in% out)]
+    families2 <- families$kingdom[match(names, families2$spfound)]
+    return(families2)
+   
+    }
+  
   NetScrap2 = function(path, dic){ 
     # Collapse dictionary
     regex = paste(dic[,1], collapse = "|")
     # Scrape scientific names in text with taxize 
     names <- scrapenames(file = path, return_content = T)
-    print("tax_name")
-    # Identify family and class names
-    #  families <- taxize::tax_name(names, get = "family", db = "ncbi",
-    #                                 verbose = F,
-    #                               ask = F) # Look for families
-    # # 
-    print("past_taxname")
+    
+    namesSci <- names$data$scientificname
+  
     # Create object with OCR text
     txt <- names$meta$content
     # Find pattern on OCR text
@@ -51,6 +69,7 @@ shinyServer(function(input, output, session) {
     # Match offsets 
     x <- names$data$offsetstart
     y <- names$data$scientificname 
+    
     z = data.frame(x,y, "z" = rep("red", length(x)))
     t = data.frame("x"= unlist(pattern),"y"= loop, "z" = rep("blue", length(loop)) )
     p = rbind(z,t)
@@ -61,9 +80,8 @@ shinyServer(function(input, output, session) {
                        substr(dic[,1],1,3))]
     p$t1 = rep(NA,length(p$z))
     p$t1[which(p$z == "blue")] = t1
-    p$t1[which(is.na(p$t1))] = "animal"
+    p$t1[which(is.na(p$t1))] = "species name"
     ob <- c(p, "text" = names$meta$content)
-    print(str(ob))
     return(ob)
   } 
   
